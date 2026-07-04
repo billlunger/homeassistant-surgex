@@ -35,8 +35,8 @@
       "alarm": {
         "name": "Alarm"
       },
-      "surge_protection": {
-        "name": "Surge protection"
+      "surge_protection_fault": {
+        "name": "Surge protection fault"
       },
       "wiring_fault": {
         "name": "Wiring fault"
@@ -82,7 +82,10 @@
         "name": "Power factor"
       },
       "crest_factor": {
-        "name": "Crest factor"
+        "name": "Line-neutral crest factor"
+      },
+      "current_crest_factor": {
+        "name": "Current crest factor"
       }
     },
     "switch": {

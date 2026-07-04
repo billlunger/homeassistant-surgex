@@ -30,36 +30,42 @@ class SurgeXBinarySensorDescription(BinarySensorEntityDescription):
 BINARY_SENSOR_DESCRIPTIONS: tuple[SurgeXBinarySensorDescription, ...] = (
     SurgeXBinarySensorDescription(
         key="connected",
+        name="Connected",
         translation_key="connected",
         device_class=BinarySensorDeviceClass.CONNECTIVITY,
         value_fn=lambda data: data.get("connected"),
     ),
     SurgeXBinarySensorDescription(
         key="running",
+        name="Running",
         translation_key="running",
         device_class=BinarySensorDeviceClass.RUNNING,
         value_fn=lambda data: _is_running(data),
     ),
     SurgeXBinarySensorDescription(
         key="shutdown",
+        name="Shutdown state",
         translation_key="shutdown",
         device_class=BinarySensorDeviceClass.PROBLEM,
         value_fn=lambda data: data.get("active_state") == "Shutdown",
     ),
     SurgeXBinarySensorDescription(
         key="alarm",
+        name="Alarm",
         translation_key="alarm",
         device_class=BinarySensorDeviceClass.PROBLEM,
         value_fn=lambda data: bool(data.get("alarm_severity") or data.get("alarms")),
     ),
     SurgeXBinarySensorDescription(
-        key="surge_protection",
-        translation_key="surge_protection",
-        device_class=BinarySensorDeviceClass.SAFETY,
-        value_fn=lambda data: _surge_good(data),
+        key="surge_protection_fault",
+        name="Surge protection fault",
+        translation_key="surge_protection_fault",
+        device_class=BinarySensorDeviceClass.PROBLEM,
+        value_fn=lambda data: _surge_protection_fault(data),
     ),
     SurgeXBinarySensorDescription(
         key="wiring_fault",
+        name="Wiring fault",
         translation_key="wiring_fault",
         device_class=BinarySensorDeviceClass.PROBLEM,
         value_fn=lambda data: data.get("wiring_fault"),
@@ -116,15 +122,15 @@ class SurgeXBinarySensor(CoordinatorEntity[SurgeXCoordinator], BinarySensorEntit
         return common_attributes(self.coordinator)
 
 
-def _surge_good(data: dict[str, Any]) -> bool | None:
-    """Return true when surge protection reports healthy."""
+def _surge_protection_fault(data: dict[str, Any]) -> bool | None:
+    """Return true when surge protection reports a fault."""
     if data.get("surge_good") is not None:
-        return data.get("surge_good")
+        return not data.get("surge_good")
     gpio_value = data.get("gpio_surge_good")
     if gpio_value is None:
         return None
     try:
-        return int(gpio_value) == 0
+        return int(gpio_value) != 0
     except (TypeError, ValueError):
         return None
 

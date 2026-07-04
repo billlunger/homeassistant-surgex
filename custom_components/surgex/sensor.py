@@ -12,7 +12,14 @@ from homeassistant.components.sensor import (
     SensorStateClass,
 )
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import UnitOfElectricCurrent, UnitOfElectricPotential, UnitOfEnergy, UnitOfFrequency, UnitOfPower, UnitOfTemperature
+from homeassistant.const import (
+    UnitOfElectricCurrent,
+    UnitOfElectricPotential,
+    UnitOfEnergy,
+    UnitOfFrequency,
+    UnitOfPower,
+    UnitOfTemperature,
+)
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
@@ -32,6 +39,7 @@ class SurgeXSensorDescription(SensorEntityDescription):
 SENSOR_DESCRIPTIONS: tuple[SurgeXSensorDescription, ...] = (
     SurgeXSensorDescription(
         key="power",
+        name="Power",
         translation_key="power",
         source_keys=("power", "Power"),
         device_class=SensorDeviceClass.POWER,
@@ -40,6 +48,7 @@ SENSOR_DESCRIPTIONS: tuple[SurgeXSensorDescription, ...] = (
     ),
     SurgeXSensorDescription(
         key="current",
+        name="Current",
         translation_key="current",
         source_keys=("current", "CurrentRmsLine", "CurrentRmsLineAvg"),
         device_class=SensorDeviceClass.CURRENT,
@@ -48,6 +57,7 @@ SENSOR_DESCRIPTIONS: tuple[SurgeXSensorDescription, ...] = (
     ),
     SurgeXSensorDescription(
         key="voltage",
+        name="Line-neutral voltage",
         translation_key="voltage",
         source_keys=("voltageLN", "line1Line2", "VoltageRmsLine", "VoltageRmsLineAvg"),
         device_class=SensorDeviceClass.VOLTAGE,
@@ -56,6 +66,7 @@ SENSOR_DESCRIPTIONS: tuple[SurgeXSensorDescription, ...] = (
     ),
     SurgeXSensorDescription(
         key="neutral_ground_voltage",
+        name="Neutral-ground voltage",
         translation_key="neutral_ground_voltage",
         source_keys=("voltageNG", "line2Ground", "VoltageRmsNG", "VoltageRmsNGAvg"),
         device_class=SensorDeviceClass.VOLTAGE,
@@ -64,6 +75,7 @@ SENSOR_DESCRIPTIONS: tuple[SurgeXSensorDescription, ...] = (
     ),
     SurgeXSensorDescription(
         key="frequency",
+        name="Frequency",
         translation_key="frequency",
         source_keys=("frequency", "FrequencyAvg"),
         device_class=SensorDeviceClass.FREQUENCY,
@@ -72,6 +84,7 @@ SENSOR_DESCRIPTIONS: tuple[SurgeXSensorDescription, ...] = (
     ),
     SurgeXSensorDescription(
         key="energy_usage",
+        name="Energy usage",
         translation_key="energy_usage",
         source_keys=("energyUsage", "EnergyUsed", "EnergyUsedDelta"),
         device_class=SensorDeviceClass.ENERGY,
@@ -80,6 +93,7 @@ SENSOR_DESCRIPTIONS: tuple[SurgeXSensorDescription, ...] = (
     ),
     SurgeXSensorDescription(
         key="temperature",
+        name="Temperature",
         translation_key="temperature",
         source_keys=("temperature", "TempInternal", "TempInternalAvg"),
         device_class=SensorDeviceClass.TEMPERATURE,
@@ -88,6 +102,7 @@ SENSOR_DESCRIPTIONS: tuple[SurgeXSensorDescription, ...] = (
     ),
     SurgeXSensorDescription(
         key="power_factor",
+        name="Power factor",
         translation_key="power_factor",
         source_keys=("pf", "PowerFactor", "PowerFactorInd"),
         icon="mdi:sine-wave",
@@ -95,8 +110,17 @@ SENSOR_DESCRIPTIONS: tuple[SurgeXSensorDescription, ...] = (
     ),
     SurgeXSensorDescription(
         key="crest_factor",
+        name="Line-neutral crest factor",
         translation_key="crest_factor",
         source_keys=("crestFactor", "CrestFactorLNAvg"),
+        icon="mdi:sine-wave",
+        state_class=SensorStateClass.MEASUREMENT,
+    ),
+    SurgeXSensorDescription(
+        key="current_crest_factor",
+        name="Current crest factor",
+        translation_key="current_crest_factor",
+        source_keys=("crestFactorNI", "CrestFactorCurrentAvg"),
         icon="mdi:sine-wave",
         state_class=SensorStateClass.MEASUREMENT,
     ),
