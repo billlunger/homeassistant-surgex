@@ -1,0 +1,12 @@
+{
+  "domain": "surgex",
+  "name": "SurgeX",
+  "codeowners": [],
+  "config_flow": true,
+  "documentation": "https://www.ametekesp.com/surgex",
+  "integration_type": "hub",
+  "iot_class": "local_polling",
+  "loggers": ["custom_components.surgex"],
+  "requirements": [],
+  "version": "0.1.0"
+}

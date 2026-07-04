@@ -1,0 +1,97 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "SurgeX",
+        "data": {
+          "host": "Host",
+          "port": "Port",
+          "ssl": "Use HTTPS",
+          "username": "Username",
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect",
+      "invalid_auth": "Invalid authentication",
+      "unknown": "Unexpected error"
+    },
+    "abort": {
+      "already_configured": "This SurgeX device is already configured"
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "connected": {
+        "name": "Connected"
+      },
+      "running": {
+        "name": "Running"
+      },
+      "shutdown": {
+        "name": "Shutdown"
+      },
+      "alarm": {
+        "name": "Alarm"
+      },
+      "surge_protection": {
+        "name": "Surge protection"
+      },
+      "wiring_fault": {
+        "name": "Wiring fault"
+      }
+    },
+    "button": {
+      "enter_shutdown_state": {
+        "name": "Enter shutdown state"
+      },
+      "clear_shutdown_state": {
+        "name": "Clear shutdown state"
+      },
+      "reset_energy_usage": {
+        "name": "Reset energy usage"
+      },
+      "reboot_outlet": {
+        "name": "Reboot outlet"
+      }
+    },
+    "sensor": {
+      "power": {
+        "name": "Power"
+      },
+      "current": {
+        "name": "Current"
+      },
+      "voltage": {
+        "name": "Voltage"
+      },
+      "neutral_ground_voltage": {
+        "name": "Neutral-ground voltage"
+      },
+      "frequency": {
+        "name": "Frequency"
+      },
+      "energy_usage": {
+        "name": "Energy usage"
+      },
+      "temperature": {
+        "name": "Temperature"
+      },
+      "power_factor": {
+        "name": "Power factor"
+      },
+      "crest_factor": {
+        "name": "Crest factor"
+      }
+    },
+    "switch": {
+      "outlet": {
+        "name": "Outlet"
+      },
+      "outlet_group": {
+        "name": "Outlet group"
+      }
+    }
+  }
+}
